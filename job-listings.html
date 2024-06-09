@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Careers - Job Listings</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+            body,
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(1, 18, 13, 0.995);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #d0dccf;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .navbar {
+            background-color: rgba(8, 41, 41, 0.637);
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .navbar a {
+            color: #fff;
+            margin: 0 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid transparent;
+            transition: background-color 0.3s, border 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #007bff;
+            border: 2px solid #1b813c;
+        }
+
+        nav {
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background-color: rgba(8, 41, 41, 0.637);
+            margin: 0;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .nav-title {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(2, 19, 19, 0.637);
+            border-radius: 10px;
+            padding: 5px 8px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 10px;
+            border-radius: 10px;
+        }
+
+        .profile-dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .profile-dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .profile-dropdown:hover .profile-dropdown-content {
+            display: block;
+        }
+
+        .profile-icon {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-icon img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .button {
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Align buttons with space between them */
+    gap: 10px; /* Add space between buttons */
+}
+
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Apply button green */
+        .button.apply-button {
+            background-color: #28a745;
+            color: white;
+            
+        }
+
+        .button.apply-button:hover {
+            background-color: #218838;
+        }
+
+        /* Job details blue */
+        .button.details-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .button.details-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Delete button red */
+        .button.delete-button {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .button.delete-button:hover {
+            background-color: #c82333;
+        }
+
+        .job-box {
+            border: 1px solid #ccc;
+            background-color    : white;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+        }
+
+        .job-box h2 {
+            margin: 0;
+        }
+
+        .job-box p {
+            margin: 5px 0;
+        }
+
+        .button {
+            margin-top: 10px;
+            
+        }
+
+        .container {
+            margin-top: 60px; /* Adjust to avoid overlapping with the navbar */
+           
+            padding: 20px;
+        }
+  
+.job-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#jobTitleSearch {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+#searchButton {
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#searchButton:hover {
+    background-color: #0056b3;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="nav-container">
+                <span class="nav-title">Job<font color="green">Wise</font></span>
+                <div class="nav-links">
+                    <a href="home_page.html">Home</a>
+                    <a href="job-listings.html">Job Listings</a>
+                    <a href="job_detail.html">Job Details</a>
+                    <a href="employer-dashboard.html">Employer Dashboard</a>
+                    <a href="candidate-dashboard.html">Candidate Dashboard</a>
+                </div>
+                <div class="nav-right" id="nav-right">
+                    <a id="login-link" href="login.html">Login</a>
+                    <div class="profile-dropdown" style="display: none;">
+                        <div class="profile-icon">
+                            <img id="profile-icon-img" src="img_person.png" alt="Profile Icon">
+                            <a href="#" class="profile-account"></a>
+                        </div>
+                        <div class="profile-dropdown-content">
+                            <a href="candidate-dashboard.html">Profile</a>
+                            <a href="#" class="logout-link">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>All Job Listings</h1>
+        <div class="search-container">
+            <input type="text" id="jobTitleSearch" placeholder="Search by Job Title...">
+            <button id="searchButton">Search</button>
+        </div>
+        
+        <div id="jobListingsContainer" data-job-title="${job.title}">
+            <!-- Dynamic job listings will be inserted here -->
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Please log in to apply for jobs.</p>
+            <a href="login.html" class="button">Login</a>
+        </div>
+    </div>
+
+    <script>
+         document.addEventListener("DOMContentLoaded", function() {
+            const loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
+            const loginLink = document.getElementById("login-link");
+            const navRight = document.getElementById("nav-right");
+            const profileDropdown = document.querySelector(".profile-dropdown");
+            const profileAccount = document.querySelector(".profile-account");
+            const profileIconImg = document.getElementById("profile-icon-img");
+            const logoutLink = document.querySelector(".logout-link");
+
+            function checkLoginStatus() {
+                if (loggedInUser) {
+                    profileAccount.textContent = loggedInUser.userid;
+                    profileIconImg.src = loggedInUser.image || "img_person.png";
+                    loginLink.style.display = "none";
+                    profileDropdown.style.display = "inline-block";
+                } else {
+                    profileDropdown.style.display = "none";
+                    loginLink.style.display = "block";
+                }
+            }
+
+            checkLoginStatus();
+
+            logoutLink.addEventListener("click", function() {
+                localStorage.removeItem("currentUser");
+                localStorage.removeItem("userType");
+                localStorage.setItem("isLoggedIn", "false");
+                alert("You have been logged out.");
+                checkLoginStatus();
+                window.location.href = "home_page.html";
+            });
+
+            const jobListingsContainer = document.getElementById('jobListingsContainer');
+            const jobListings = JSON.parse(localStorage.getItem('jobs')) || [];
+
+            function renderJobListings(jobs) {
+                jobListingsContainer.innerHTML = '';
+                jobs.forEach(job => {
+                    let jobBox = document.createElement('div');
+                    jobBox.className = 'job-box';
+                    jobBox.innerHTML = `
+                        <h2>${job.title}</h2>
+                        <p>Company: ${job.company}</p>
+                         <div class="button-container">
+                        <a href="#" class="button apply-button" data-title="${job.title}">Apply</a>
+                        <a href="job-detail.html?job=${encodeURIComponent(job.title)}" class="button details-button">Job Details</a>
+                        <a href="#" class="button delete-button" data-title="${job.title}">Delete</a>
+                    </div>
+                    `;
+                    jobListingsContainer.appendChild(jobBox);
+                });
+
+                // Add event listeners to apply buttons
+                document.querySelectorAll('.apply-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        applyForJob(this.getAttribute('data-title'));
+                    });
+                });
+
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-button').forEach(button => {
+                    button.addEventListener('click', function() {
+                        deleteJob(this.getAttribute('data-title'));
+                    });
+                });
+            }
+
+            renderJobListings(jobListings);
+
+            function applyForJob(jobTitle) {
+                const loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
+                if (!loggedInUser) {
+                    document.getElementById("loginModal").style.display = "block";
+                } else if (localStorage.getItem("userType") === "employer") {
+                    alert("Employers cannot apply for jobs.");
+                } else {
+                    let jobApplications = JSON.parse(localStorage.getItem('jobApplications')) || [];
+                    const hasApplied = jobApplications.some(application => application.jobTitle === jobTitle && application.userID === loggedInUser.userID);
+                    if (hasApplied) {
+                        alert("You have already applied for this job.");
+                        return;
+                    }
+                    jobApplications.push({ userID: loggedInUser.userID, jobTitle, status: "Pending" });
+                    localStorage.setItem('jobApplications', JSON.stringify(jobApplications));
+                    window.location.href = `apply_job.html?job=${encodeURIComponent(jobTitle)}`;
+                }
+            }
+
+            function deleteJob(jobTitle) {
+                const updatedJobListings = jobListings.filter(job => job.title !== jobTitle);
+                localStorage.setItem('jobs', JSON.stringify(updatedJobListings));
+                renderJobListings(updatedJobListings);
+            }
+
+            // Filter logic
+            function applyFilters() {
+                const jobTitle = document.getElementById('jobTitleSearch').value.toLowerCase();
+                const filteredJobs = jobListings.filter(job => job.title.toLowerCase().includes(jobTitle));
+                renderJobListings(filteredJobs);
+            }
+
+            // Event listener for the search button
+            document.getElementById('searchButton').addEventListener('click', applyFilters);
+
+            // Event listener for the search input to enable real-time filtering
+            document.getElementById('jobTitleSearch').addEventListener('input', applyFilters);
+
+            // Close the modal when the close button is clicked
+            document.querySelector(".close").addEventListener("click", function() {
+                document.getElementById("loginModal").style.display = "none";
+            });
+
+            // Close the modal when clicking outside of the modal content
+            window.onclick = function(event) {
+                const modal = document.getElementById("loginModal");
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        });
+    </script>
+</body>
+</html>

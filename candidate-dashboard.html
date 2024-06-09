@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+          body, ul {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(1, 18, 13, 0.995);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            width: 800px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: #000000d1;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-top: 50px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+        .navbar {
+            background-color: rgba(8, 41, 41, 0.637);
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        .navbar a {
+            color: #fff;
+            margin: 0 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid transparent;
+            transition: background-color 0.3s, border 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #007bff;
+            border: 2px solid #1b813c;
+        }
+        nav {
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background-color: rgba(8, 41, 41, 0.637);
+            margin: 0;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .nav-title {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(2, 19, 19, 0.637);
+            border-radius: 10px;
+            padding: 5px 8px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .profile-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 10px;
+            border-radius: 10px;
+        }
+        .profile-dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .profile-dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .profile-dropdown:hover .profile-dropdown-content {
+            display: block;
+        }
+        .profile-icon {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .profile-icon img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        h1, h2 {
+            color: #4e3973;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="tel"],
+        form textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .job-application-box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .job-application-box h3 {
+            margin-top: 0;
+        }
+        .know-more-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .know-more-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="nav-container">
+                <span class="nav-title">Job<font color="green">Wise</font></span>
+                <div class="nav-links">
+                    <a href="home_page.html">Home</a>
+                    <a href="job-listings.html">Job Listings</a>
+                    <a href="job_detail.html">Job Details</a>
+                    <a href="employer-dashboard.html">Employer Dashboard</a>
+                    <a href="candidate-dashboard.html">Candidate Dashboard</a>
+                </div>
+                <div class="nav-right" id="nav-right">
+                    <a id="login-link" href="login.html">Login</a>
+                    <div class="profile-dropdown" style="display: none;">
+                        <div class="profile-icon">
+                            <img id="profile-icon-img" src="img_person.png" alt="Profile Icon">
+                            <a href="#" class="profile-account"></a>
+                        </div>
+                        <div class="profile-dropdown-content">
+                            <a href="candidate-dashboard.html">Profile</a>
+                            <a href="#" class="logout-link">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <h1>Candidate Dashboard</h1>
+    <div class="container">
+        <div id="profileDetails">
+            <h2>Profile Details</h2>
+            <p><strong>Full Name:</strong> <span id="displayFullName"></span></p>
+            <p><strong>User ID:</strong> <span id="displayUserID"></span></p>
+            <p><strong>Nationality:</strong> <span id="displayNationality"></span></p>
+            <button id="editProfileButton" class="button">Edit Profile</button>
+        </div>
+        <h2>Your Job Applications</h2>
+        <div id="applicationsContainer">
+            <!-- Job applications will be inserted here dynamically -->
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Profile</h2>
+            <form id="editProfileForm">
+                <label for="editFullName">Full Name:</label>
+                <input type="text" id="editFullName" name="editFullName" required><br><br>
+                <label for="editNationality">Nationality:</label>
+                <input type="text" id="editNationality" name="editNationality" required><br><br>
+                <button type="submit" id="updateProfileButton" class="button">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+       document.addEventListener('DOMContentLoaded', () => {
+    const loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (loggedInUser && loggedInUser.userType === 'candidate') {
+        document.getElementById('displayFullName').innerText = `${loggedInUser.firstname} ${loggedInUser.surname}`;
+        document.getElementById('displayUserID').innerText = loggedInUser.userid;
+        document.getElementById('displayNationality').innerText = loggedInUser.nationality;
+    } else if (loggedInUser && loggedInUser.userType === 'employer') {
+        // Show empty details for employers
+        document.getElementById('displayFullName').innerText = '';
+        document.getElementById('displayUserID').innerText = '';
+        document.getElementById('displayNationality').innerText = '';
+    }
+
+    const loginLink = document.getElementById("login-link");
+    const profileDropdown = document.querySelector(".profile-dropdown");
+    const profileAccount = document.querySelector(".profile-account");
+    const profileIconImg = document.getElementById("profile-icon-img");
+    const logoutLink = document.querySelector(".logout-link");
+
+    function checkLoginStatus() {
+        if (loggedInUser) {
+            if (localStorage.getItem("userType") === 'employer') {
+                profileAccount.textContent = loggedInUser.userid;
+            } else {
+                profileAccount.textContent = loggedInUser.userid;
+            }
+            profileIconImg.src = loggedInUser.image || "img_person.png";
+            loginLink.style.display = "none";
+            profileDropdown.style.display = "inline-block";
+        } else {
+            profileDropdown.style.display = "none";
+            loginLink.style.display = "block";
+        }
+    }
+
+    checkLoginStatus();
+
+    logoutLink.addEventListener("click", function() {
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("userType");
+        localStorage.setItem("isLoggedIn", "false");
+        alert("You have been logged out.");
+        checkLoginStatus();
+        window.location.href = "home_page.html";
+    });
+
+    // Edit profile functionality
+    const editProfileButton = document.getElementById('editProfileButton');
+    const editProfileModal = document.getElementById('editProfileModal');
+    const editFullNameInput = document.getElementById('editFullName');
+    const editNationalityInput = document.getElementById('editNationality');
+
+    editProfileButton.addEventListener('click', () => {
+        editFullNameInput.value = loggedInUser.firstName + " " + loggedInUser.lastName;
+        editNationalityInput.value = loggedInUser.nationality;
+        editProfileModal.style.display = 'block';
+    });
+
+    document.querySelector('.close').addEventListener('click', () => {
+        editProfileModal.style.display = 'none';
+    });
+
+    document.getElementById('editProfileForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        let fullName = editFullNameInput.value.trim();
+        let [firstName, lastName] = fullName.split(' ');
+        let nationality = editNationalityInput.value.trim();
+
+        loggedInUser.firstName = firstName;
+        loggedInUser.lastName = lastName;
+        loggedInUser.nationality = nationality;
+
+        document.getElementById('displayFullName').innerText = fullName;
+        document.getElementById('displayNationality').innerText = nationality;
+
+        localStorage.setItem('currentUser', JSON.stringify(loggedInUser));
+
+        editProfileModal.style.display = 'none';
+    });
+
+    // Load job applications from local storage
+    const jobApplications = JSON.parse(localStorage.getItem('jobApplications')) || [];
+    const applicationsContainer = document.getElementById('applicationsContainer');
+
+    jobApplications.forEach((application) => {
+        const jobBox = document.createElement('div');
+        jobBox.className = 'job-application-box';
+        jobBox.innerHTML = `
+            <h3>${application.jobTitle}</h3>
+            <p><strong>Status:</strong> ${application.status}</p>
+            <button class="know-more-btn">Know More</button>
+        `;
+        applicationsContainer.appendChild(jobBox);
+    });
+});
+
+    </script>
+</body>
+</html>

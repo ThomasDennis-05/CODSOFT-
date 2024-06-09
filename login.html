@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            background-image: url("https://media.istockphoto.com/id/1349280027/photo/background-black-and-green-dark-are-light-with-the-gradient-is-the-surface-with-templates.webp?b=1&s=170667a&w=0&k=20&c=J8dcCslR9FI3-RJcbBXKd0FI2GBfgQ9TBf4wZSty8AA=");
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            border-radius: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h2 {
+    color: #11421c;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+h2:hover {
+    color: #0c2c13;
+    transform: scale(1.05);
+}
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #000;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: calc(100% + 20px);
+            margin-right: 120px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #b5b8a8;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #11421c;
+        }
+        .form-group button {
+            width: 50%;
+            margin: 20px auto 0;
+            background-color: #11421c;
+            color: #f9f6e5;
+            border: none;
+            border-radius: 5px;
+            padding: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .form-group button:hover {
+            background-color: #0c2c13;
+            transform: scale(1.05);
+        }
+        .form-group input:hover {
+            border-color: #11421c;
+        }
+        p {
+            text-align: center;
+            margin-top: 20px;
+        }
+        p a {
+            color: #11421c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        p a:hover {
+            text-decoration: underline;
+        }
+        .icon-container {
+            margin-bottom: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .icon-container i {
+            font-size: 45px;
+            color: #11421c;
+        }
+        .icon-container p {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #11421c;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="icon-container">
+            <i class="fas fa-briefcase"></i>
+            <br>
+            <p>Your dream job is just a few clicks away!</p>
+        </div>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="userid">User ID:</label>
+                <input type="text" id="userid" name="userid" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="button" class="button" onclick="login()">Login</button>
+            </div>
+        </form>
+        <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+    </div>
+    <script>
+        function login() {
+            const userid = document.getElementById('userid').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            console.log(`Attempting login with UserID: ${userid}, Password: ${password}`);
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userid, password })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Login failed');
+                }
+            })
+            .then(data => {
+                localStorage.setItem('currentUser', JSON.stringify(data));
+                localStorage.setItem('isLoggedIn', 'true');
+                window.location.href = 'home_page.html';
+            })
+            .catch(error => {
+                alert('Invalid login credentials');
+                console.error('Login error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

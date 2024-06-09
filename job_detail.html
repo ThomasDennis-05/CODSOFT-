@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard</title>
+    <style>
+        /* Your existing styles */
+
+        body,
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgba(1, 18, 13, 0.995);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #d0dccf;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .navbar {
+            background-color: rgba(8, 41, 41, 0.637);
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .navbar a {
+            color: #fff;
+            margin: 0 10px;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 2px solid transparent;
+            transition: background-color 0.3s, border 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #007bff;
+            border: 2px solid #1b813c;
+        }
+
+        nav {
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background-color: rgba(8, 41, 41, 0.637);
+            margin: 0;
+            position: fixed;
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .nav-title {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(2, 19, 19, 0.637);
+            border-radius: 10px;
+            padding: 5px 8px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            right: 10px;
+            border-radius: 10px;
+        }
+
+        .profile-dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .profile-dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .profile-dropdown:hover .profile-dropdown-content {
+            display: block;
+        }
+
+        .profile-icon {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-icon img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        #dashboard {
+            padding: 20px;
+            margin-top: 60px;
+        }
+
+        #job-listings {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .job-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 10px;
+            width: calc(33.333% - 20px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .job-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .job-description,
+        .job-requirements,
+        .work-hours,
+        .salary {
+            margin: 10px 0;
+        }
+
+        .apply-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .apply-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="nav-container">
+                <span class="nav-title">Job<font color="green">Wise</font></span>
+                <div class="nav-links">
+                    <a href="home_page.html">Home</a>
+                    <a href="job-listings.html">Job Listings</a>
+                    <a href="job_detail.html">Job Details</a>
+                    <a href="employer-dashboard.html">Employer Dashboard</a>
+                    <a href="candidate-dashboard.html">Candidate Dashboard</a>
+                </div>
+                <div class="nav-right" id="nav-right">
+                    <a id="login-link" href="login.html">Login</a>
+                    <div class="profile-dropdown" style="display: none;">
+                        <div class="profile-icon">
+                            <img id="profile-icon-img" src="img_person.png" alt="Profile Icon">
+                            <a href="#" class="profile-account"></a>
+                        </div>
+                        <div class="profile-dropdown-content">
+                            <a href="candidate-dashboard.html">Profile</a>
+                            <a href="#" class="logout-link">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="dashboard">
+        <h1>Job Listings</h1>
+        <div id="job-listings"></div>
+    </div>
+
+    <script>
+           document.addEventListener("DOMContentLoaded", function() {
+            const loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
+            const loginLink = document.getElementById("login-link");
+            const navRight = document.getElementById("nav-right");
+            const profileDropdown = document.querySelector(".profile-dropdown");
+            const profileAccount = document.querySelector(".profile-account");
+            const profileIconImg = document.getElementById("profile-icon-img");
+            const logoutLink = document.querySelector(".logout-link");
+    
+            function checkLoginStatus() {
+                const loggedInUser = JSON.parse(localStorage.getItem("currentUser"));
+                if (loggedInUser) {
+                    const userType = localStorage.getItem("userType");
+                    profileAccount.textContent = userType === 'employer' ? loggedInUser.userid : loggedInUser.userid;
+                    profileIconImg.src = loggedInUser.image || "img_person.png";
+                    loginLink.style.display = "none";
+                    profileDropdown.style.display = "inline-block";
+                } else {
+                    profileDropdown.style.display = "none";
+                    loginLink.style.display = "block";
+                }
+            }
+    
+            checkLoginStatus();
+    
+            logoutLink.addEventListener("click", function() {
+                localStorage.removeItem("currentUser");
+                localStorage.removeItem("userType");
+                localStorage.setItem("isLoggedIn", "false");
+                alert("You have been logged out.");
+                checkLoginStatus();
+                window.location.href = "home_page.html";
+            });
+    
+        
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+            const jobListingsContainer = document.getElementById('job-listings');
+
+            jobs.forEach(job => {
+                const jobBox = document.createElement('div');
+                jobBox.classList.add('job-box');
+                jobBox.innerHTML = `
+                    <h2 class="job-title">${job.title}</h2>
+                    <p class="job-description"><strong>Description:</strong> ${job.description}</p>
+                    <p class="job-requirements"><strong>Requirements:</strong> ${job.requirements}</p>
+                    <p class="job-location"><strong>Location:</strong> ${job.location}</p>
+                    <p class="work-hours"><strong>Work Hours:</strong> ${job.workHours}</p>
+                    <p class="salary"><strong>Salary:</strong> ${job.salary}</p>
+                    <p class="company-name"><strong>Company:</strong> ${job.company}</p>
+                    <button class="apply-button" onclick="applyForJob('${job.id}')">Apply</button>
+                `;
+                jobListingsContainer.appendChild(jobBox);
+            });
+        });
+
+        function applyForJob(jobId) {
+    const jobs = JSON.parse(localStorage.getItem('jobs')) || [];
+    const job = jobs.find(job => job.id === jobId);
+
+    // Store the selected job in localStorage
+    localStorage.setItem('selectedJob', JSON.stringify(job));
+
+    // Redirect to the apply_job.html page
+    window.location.href = 'apply_job.html';
+}
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Z2VnPgaDZjg5ax7byZO9emzYmR/3fyhEKfSlb8vZU7q//g2sxeJN5u6bQaXq8IhJ" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url("https://media.istockphoto.com/id/1349280027/photo/background-black-and-green-dark-are-light-with-the-gradient-is-the-surface-with-templates.webp?b=1&s=170667a&w=0&k=20&c=J8dcCslR9FI3-RJcbBXKd0FI2GBfgQ9TBf4wZSty8AA=");
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .hidden {
+            display: none;
+        }
+        .container {
+    width: 100%;
+    max-width: 600px;
+    margin: 30px auto 0;
+    padding: 40px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.724);
+    background-color: #ffffff;
+    border-radius: 40px;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center; 
+}
+.nav-buttons {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    background-color: #11421c;
+    color: #f9f6e5;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button.selected:hover { 
+    background-color: #0c2c13;
+    transform: scale(1.1);
+}
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #000000;
+            font-weight: bold;
+        }
+        .form-group input {
+    width: 100%; 
+    margin-right: 50px; 
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #b5b8a8;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #11421c;
+        }
+
+        .form-group button {
+    width: 50%; 
+    margin: 20px auto 0;
+    display: block; 
+    background-color: #11421c;
+    color: #f9f6e5;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 15px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+        .form-group button:hover {
+            background-color: #0c2c13;
+            transform: scale(1.1);
+        }
+        h2 {
+            color: #11421c;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 24px;
+            position: relative;
+        }
+        h2 i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            color: #11421c;
+        }
+        p {
+            color: #333333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .nav-buttons button:hover {
+            background-color: #0c2c13;
+            transform: scale(1.05);
+        }
+        .form-group input:hover {
+            border-color: #11421c;
+        }
+        .form-group button:hover {
+            background-color: #0c2c13;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fas fa-briefcase"></i> Join Us!</h2>
+        <p>Sign up to access exciting job opportunities.</p>
+        <div class="nav-buttons">
+            <button class="button" onclick="showEmployerForm()">Employer</button>
+            <button class="button" onclick="showCandidateForm()">Candidate</button>
+        </div>
+      <!-- Employer Form -->
+<div id="employerForm" class="hidden">
+    <h2>Employer Sign Up</h2>
+    <form id="employerSignupForm">
+        <div class="form-group">
+            <label for="employerCompanyName">Company Name:</label>
+            <input type="text" id="employerCompanyName" name="companyName" required>
+        </div>
+        <div class="form-group">
+            <label for="employerLocation">Location:</label>
+            <input type="text" id="employerLocation" name="location" required>
+        </div>
+        <div class="form-group">
+            <label for="employerEmail">Email:</label>
+            <input type="email" id="employerEmail" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="employerUserID">User ID:</label>
+            <input type="text" id="employerUserID" name="userid" required>
+        </div>
+        <div class="form-group">
+            <label for="employerPassword">Password:</label>
+            <input type="password" id="employerPassword" name="password" required>
+        </div>
+        <div class="form-group">
+            <button type="button" class="button" onclick="signup('employer')">Sign Up</button>
+        </div>
+    </form>
+</div>
+
+<!-- Candidate Form -->
+<div id="candidateForm" class="hidden">
+    <h2>Candidate Sign Up</h2>
+    <form id="candidateSignupForm">
+        <div class="form-group">
+            <label for="candidateFirstName">First Name:</label>
+            <input type="text" id="candidateFirstName" name="firstname" required>
+        </div>
+        <div class="form-group">
+            <label for="candidateLastName">Last Name:</label>
+            <input type="text" id="candidateLastName" name="surname" required>
+        </div>
+        <div class="form-group">
+            <label for="candidateNationality">Nationality:</label>
+            <input type="text" id="candidateNationality" name="nationality" required>
+        </div>
+        <div class="form-group">
+            <label for="candidateEmail">Email:</label>
+            <input type="email" id="candidateEmail" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="candidateUserID">User ID:</label>
+            <input type="text" id="candidateUserID" name="userid" required>
+        </div>
+        <div class="form-group">
+            <label for="candidatePassword">Password:</label>
+            <input type="password" id="candidatePassword" name="password" required>
+        </div>
+        <div class="form-group">
+            <button type="button" class="button" onclick="signup('candidate')">Sign Up</button>
+        </div>
+    </form>
+</div>
+
+    </div>
+    <script>
+        function showEmployerForm() {
+            document.getElementById('employerForm').classList.remove('hidden');
+            document.getElementById('candidateForm').classList.add('hidden');
+            document.querySelectorAll('.nav-buttons .button').forEach(button => {
+                button.classList.remove('selected');
+                button.style.backgroundColor = '#11421c'; 
+            });
+            this.classList.add('selected');
+            this.style.backgroundColor = '#0c2c13'; 
+        }
+
+        function showCandidateForm() {
+            document.getElementById('candidateForm').classList.remove('hidden');
+            document.getElementById('employerForm').classList.add('hidden');
+            document.querySelectorAll('.nav-buttons .button').forEach(button => {
+                button.classList.remove('selected');
+                button.style.backgroundColor = '#11421c'; 
+            });
+            this.classList.add('selected');
+            this.style.backgroundColor = '#0c2c13'; 
+        }
+
+        document.querySelectorAll('.nav-buttons .button').forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.classList.contains('selected')) {
+                    return;
+                }
+                document.querySelectorAll('.nav-buttons .button').forEach(button => {
+                    button.classList.remove('selected'); 
+                    button.style.backgroundColor = '#11421c'; 
+                });
+                this.classList.add('selected'); 
+                this.style.backgroundColor = '#0c2c13'; 
+            });
+        });
+
+        function signup(userType) {
+            let form;
+            if (userType === 'employer') {
+                form = document.getElementById('employerSignupForm');
+            } else {
+                form = document.getElementById('candidateSignupForm');
+            }
+            const formData = new FormData(form);
+            const userData = {};
+            formData.forEach((value, key) => {
+                userData[key] = value;
+            });
+
+            userData.userType = userType;
+
+            fetch('http://localhost:3000/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();  
+            })
+            .then(data => {
+                alert('Sign Up Successful');
+                window.location.href = '/login.html';
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

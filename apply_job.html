@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        nav {
+            background-color: #007bff;
+            padding: 10px;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: left;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            text-align: center;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="home_page.html">Home</a>
+        <a href="employer-dashboard.html">Employer Dashboard</a>
+        <a href="candidate-dashboard.html">Candidate Dashboard</a>
+        <a href="job-listings.html">Job Listings</a>
+    </nav>
+    <div class="container">
+        <h1>Apply for <span id="jobTitle"></span></h1>
+        <form id="applicationForm" action="/submit-application" method="POST" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="resume">Resume:</label>
+            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+            
+            <label for="coverLetter">Cover Letter:</label>
+            <textarea id="coverLetter" name="coverLetter" rows="5" required></textarea>
+            
+            <input type="hidden" id="jobTitleInput" name="jobTitle">
+            
+            <div style="text-align: center;">
+                <button type="submit" class="button">Submit Application</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+          function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get the job title from the URL parameter
+            const jobTitle = getQueryParam('job');
+            if (jobTitle) {
+                document.getElementById('jobTitle').textContent = jobTitle;
+                document.getElementById('jobTitleInput').value = jobTitle;
+            }
+
+            document.getElementById('applicationForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const resume = document.getElementById('resume').files[0];
+                const coverLetter = document.getElementById('coverLetter').value;
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const resumeURL = event.target.result;
+
+                    const applicationDetails = {
+                        jobTitle, // Ensure jobTitle is a string
+                        name,
+                        email,
+                        resume: resumeURL,
+                        coverLetter,
+                        userID: JSON.parse(localStorage.getItem('currentUser')).userid
+                    };
+
+                    fetch('/submit-application', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(applicationDetails)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            alert(data.message);
+                            window.location.href = 'job-listings.html';
+                        } else {
+                            alert('Error submitting application');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                };
+                reader.readAsDataURL(resume);
+            });
+        });
+    </script>
+</body>
+</html>
