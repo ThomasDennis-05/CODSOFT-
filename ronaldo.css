@@ -1,0 +1,263 @@
+/* Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(rgb(34, 31, 31), rgba(60, 57, 57, 0)), url('https://wallpaper.dog/large/997116.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    line-height: 1.6;
+    overflow-x: hidden; 
+    background-color: #232020;
+}
+
+
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(25, 25, 27, 0.937);
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: border-color 0.3s; /* Add transition for smooth effect */
+    border: 2px solid transparent; /* Add a transparent border */
+}
+
+.container:hover {
+    border-color: white; /* Change border color on hover */
+}
+
+
+/* Banner Section Styles */
+.banner-section {
+    text-align: center;
+}
+
+/* Banner Styles */
+.banner img {
+    max-width: 100%;
+    height: 370px; /* Set the height to your desired value */
+    object-fit: cover;
+}
+/* Grid Section Styles */
+.grid-section {
+    margin-top: 20px;
+}
+
+/* Main Styles */
+main {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    background-color: #222;
+    color: white;
+    padding: 10px 0;
+    border-radius: 0 0 5px 5px;
+}
+
+
+
+/* Hide sections initially */
+.section-box.hidden {
+    display: none;
+}
+
+/* Section Styles */
+.section-box {
+    background-color: rgba(55, 57, 62, 0.532);
+    color: white;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.3s;
+}
+
+/* Section Content Styles */
+.section-content ul {
+    list-style-type: disc; /* Use disc bullets */
+    padding-left: 20px; /* Add some padding to align with text */
+}
+
+/* Section Content List Item Styles */
+.section-content li {
+    margin-bottom: 10px; /* Add some space between list items */
+}
+
+
+.sidebar a:hover::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    bottom: -5px;
+    left: 0;
+    animation: pop-up 0.3s ease forwards;
+}
+
+.sidebar a:hover + .container section {
+    transform: scale(1);
+}
+
+@keyframes pop-up {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+
+/* Heading Styles */
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: 'Helvetica', sans-serif;
+    /* Rainbow glow gradient effect */
+    color: transparent;
+    font-size: 2em; /* Adjust font size as needed */
+    background-image: linear-gradient(to right, red, orange, yellow, green, blue, violet);
+    -webkit-background-clip: text;
+    animation: rainbow 3s linear infinite;
+}
+
+@keyframes rainbow {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* Paragraph Styles */
+.paragraphs {
+    text-align: justify;
+}
+
+/* Unordered List Styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+/* Paragraph Styles */
+.paragraphs {
+    text-align: justify;
+    color: white;
+}
+
+/* Blockquote Styles */
+blockquote {
+    font-style: italic;
+    margin: 0;
+    padding-left: 20px;
+    border-left: 5px solid #ccc;
+    color: white;
+}
+/* Slideshow Styles */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    overflow: hidden;
+}
+
+.mySlides {
+    display: none;
+    width: 100%;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+
+
+
+.sidebar {
+    position: fixed;
+    top: 20px; /* Adjust the distance from the top as needed */
+    left: 20px; /* Adjust the distance from the right as needed */
+    background-color: rgb(56, 51, 51);
+    color: white;
+    padding: 80px 60px 60px; /* Adjust the padding as needed */
+    border-radius: 5px;
+    height: calc(100vh - 250px); /* Adjust the height as needed */
+    background-image:linear-gradient(rgba(53, 46, 46, 0.405), rgba(60, 57, 57, 0.6)),url('https://i.pinimg.com/736x/d9/89/86/d98986331cb999453032285ec7872d8d.jpg');
+    background-size: cover;
+    background-position: center;
+    transition: padding 0.3s;
+    border: 2px solid transparent; /* Add a transparent border */
+}
+
+
+
+
+
+.sidebar:hover {
+    border-color: white; /* Change border color on hover */
+}
+
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 0;
+    
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    padding: 12px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: white;
+    position: relative;
+    display: inline-block;
+}
+
+.sidebar a:hover::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    bottom: -5px;
+    left: 0;
+    animation: pop-up 0.3s ease forwards;
+}
+
+@keyframes pop-up {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+
+
+
+
